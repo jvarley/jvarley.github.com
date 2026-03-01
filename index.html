@@ -1,62 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jake Varley</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #2c5f8a;
+      --accent-light: #4a8ab5;
+      --text-primary: #1a1a2e;
+      --text-secondary: #555;
+      --bg: #f8f9fb;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+    }
 
-<html>
-<header><title>Jake Varley</title></header>
-  <head>
-    <title>Jake Varley</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Analytics -->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .navbar-brand {
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: var(--accent) !important;
+      letter-spacing: -0.01em;
+    }
+    .nav-link {
+      color: var(--text-secondary) !important;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.4rem 0.8rem !important;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-link:hover {
+      background: var(--bg);
+      color: var(--accent) !important;
+    }
+
+    /* ── Main content ── */
+    .page-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem 3rem;
+    }
+
+    /* ── Profile card ── */
+    .profile-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.25rem 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .profile-photo {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+    .profile-name {
+      font-family: 'Lora', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.15rem;
+    }
+    .profile-title {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+    .bio-text {
+      font-size: 0.97rem;
+      color: #333;
+    }
+
+    /* ── Section headers ── */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* ── Publications ── */
+    .year-group {
+      margin-bottom: 1.75rem;
+    }
+    .year-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .pub-item {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-item:last-child {
+      border-bottom: none;
+    }
+    .pub-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    .pub-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .pub-title a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .pub-authors {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+      line-height: 1.45;
+    }
+    .pub-venue {
+      font-size: 0.83rem;
+      color: var(--accent-light);
+      font-style: italic;
+      margin-top: 0.15rem;
+    }
+    .badge-award {
+      font-size: 0.72rem;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      border-radius: 20px;
+      padding: 0.15rem 0.55rem;
+      font-weight: 600;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #aaa;
+      padding: 2rem 0 1.5rem;
+    }
+
+    @media (max-width: 576px) {
+      .profile-card { padding: 1.5rem; }
+      .section-card { padding: 1.5rem; }
+      .profile-name { font-size: 1.6rem; }
+    }
+  </style>
+</head>
 <body>
 
-<row>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Jake Varley</a>
-        </div>
-        <ul class="nav navbar-nav">
-	  <li>
-            <a href="https://scholar.google.com/citations?user=UJcm1MoAAAAJ&hl=en"><span class="icon-large icon-github"></span>Google Scholar</a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/jacob-varley-293b3446/"><span class="icon-large icon-github"></span>LinkedIn</a>
-          </li>
-          <li>
-            <a href="https://github.com/jvarley"><span class="icon-large icon-github"></span>Github</a>
-          </li>
-        </ul>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Jake Varley</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navLinks">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://scholar.google.com/citations?user=UJcm1MoAAAAJ&hl=en">Google Scholar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://www.linkedin.com/in/jacob-varley-293b3446/">LinkedIn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/jvarley">GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- Profile -->
+  <div class="profile-card">
+    <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-4">
+      <img src="jake_headshot.jpg" alt="Jake Varley" class="profile-photo">
+      <div>
+        <div class="profile-name">Jake Varley</div>
+        <div class="profile-title">Software Engineer · Robotics, Google DeepMind NYC</div>
+        <p class="bio-text">
+          I am a Software Engineer on the Robotics team at Google DeepMind NYC, working at the intersection of machine learning and robotics.
+          My current focus is on <strong>safety and alignment for humanoid robots</strong>&mdash;developing the frameworks, constraints, and evaluation methods needed to deploy capable humanoid systems safely in real-world environments alongside humans.
+          This includes work on semantic safety, uncertainty-aware planning, and building robustly safe controllers that interface with modern foundation models.
+        </p>
+        <p class="bio-text">
+          I received my Ph.D. from Columbia University in 2018, where I was advised by <a href="https://www.cs.columbia.edu/~allen/">Peter Allen</a>.
+          My broader research interests span high-DoF planning and control, 3D computer vision, reinforcement learning, and foundation models for robotics.
+          I enjoy tackling the engineering challenges that come with the multidisciplinary nature and system complexity inherent to real-robot research.
+        </p>
       </div>
-    </nav>
-    </row>
-
-        <br>
-    <br>
-    <br>
-
-<font size="3.0pt">
-
-
-
-  <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <div class="well well-sm" style="margin-top: 20px;">
-	<img src="jake_headshot.jpg", width="180">
-        <br>
-        <br>
-      I am a Software Engineer in the Robotics team at Google DeepMind NYC working at the intersection of machine learning and robotics. I received my Ph.D. from Columbia in 2018, where I was advised by <a href="https://www.cs.columbia.edu/~allen/"> Peter Allen</a>. My research interests within robotics include high DoF planning and control problems, 3D Computer Vision, Reinforcement Learning, Foundation models, and Safety. I also enjoy working through the engineering challenges posed by the multi-discplinary nature and system complexity inherit to robotics. 
-
-      <div class="col-md-2"></div>
+    </div>
   </div>
 
-</font>
+  <!-- Publications -->
+  <div class="section-card">
+    <div class="section-title">Publications</div>
+
+    <!-- 2025 -->
+    <div class="year-group">
+      <div class="year-label">2025</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2510.03342">Gemini Robotics 1.5: Pushing the Frontier of Generalist Robots with Advanced Embodied Reasoning, Thinking, and Motion Transfer</a>
+        </div>
+        <div class="pub-authors">Gemini Robotics Team (incl. Jake Varley)</div>
+        <div class="pub-venue">arXiv, 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2503.20020">Gemini Robotics: Bringing AI into the Physical World</a>
+        </div>
+        <div class="pub-authors">Gemini Robotics Team (incl. Jake Varley)</div>
+        <div class="pub-venue">arXiv, 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2502.02562">Learning the RoPEs: Better 2D and 3D Position Encodings with STRING</a>
+        </div>
+        <div class="pub-authors">Connor Schenck et al. (incl. Jake Varley)</div>
+        <div class="pub-venue">arXiv, 2025</div>
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div class="year-group">
+      <div class="year-label">2024</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2404.03570">Embodied AI with Two Arms: Zero-shot Learning, Safety and Modularity</a>
+        </div>
+        <div class="pub-authors">Jake Varley, Sumeet Singh, Deepali Jain, Krzysztof Choromanski, Andy Zeng, Somnath Basu Roy Chowdhury, Avinava Dubey, Vikas Sindhwani</div>
+        <div class="pub-venue">IROS 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2406.19800">Modeling the Real World with High-Density Visual Particle Dynamics</a>
+        </div>
+        <div class="pub-authors">William F. Whitney, Jake Varley, Deepali Jain, Krzysztof Choromanski, Sumeet Singh, Vikas Sindhwani</div>
+        <div class="pub-venue">CoRL 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2312.01990">SARA-RT: Scaling up Robotics Transformers with Self-Adaptive Robust Attention</a>
+        </div>
+        <div class="pub-authors">Isabel Leal, Krzysztof Choromanski, Deepali Jain, Avinava Dubey, Jake Varley, Michael Ryoo, Yao Lu, Frederick Liu, Vikas Sindhwani, Quan Vuong, Tamas Sarlos, Ken Oslund, Karol Hausman, Kanishka Rao</div>
+        <div class="pub-venue">ICRA 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          How to Prompt Your Robot: A PromptBook for Manipulation Skills with Code as Policies
+        </div>
+        <div class="pub-authors">Montserrat Gonzalez Arenas, Ted Xiao, Sumeet Singh, Vidhi Jain, Allen Z. Ren, Quan Vuong, Jake Varley, Alexander Herzog, Isabel Leal, Sean Kirmani, Dorsa Sadigh, Vikas Sindhwani, Kanishka Rao, Jacky Liang, Andy Zeng</div>
+        <div class="pub-venue">ICRA 2024</div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="year-group">
+      <div class="year-label">2023</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2307.01928">Robots That Ask For Help: Uncertainty Alignment for Large Language Model Planners</a>
+          <span class="badge-award">Best Student Paper · CoRL 2023</span>
+        </div>
+        <div class="pub-authors">Allen Z. Ren, Anushri Dixit, Alexandra Bodrova, Sumeet Singh, Stephen Tu, Noah Brown, Peng Xu, Leila Takayama, Fei Xia, Jake Varley, Zhenjia Xu, Dorsa Sadigh, Andy Zeng, Anirudha Majumdar</div>
+        <div class="pub-venue">CoRL 2023</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Visual Backtracking Teleoperation: A Data Collection Protocol for Offline Image-Based Reinforcement Learning</div>
+        <div class="pub-authors">David Brandfonbrener, Stephen Tu, Avi Singh, Stefan Welker, Chad Boodoo, Nikolai Matni, Jake Varley</div>
+        <div class="pub-venue">ICRA 2023</div>
+      </div>
+    </div>
+
+    <!-- 2022 -->
+    <div class="year-group">
+      <div class="year-label">2022</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Learning Model Predictive Controllers with Real-Time Attention for Real-World Navigation</div>
+        <div class="pub-authors">Xuesu Xiao, Tingnan Zhang, Krzysztof Choromanski, Tsang-Wei Edward Lee, Anthony Francis, Jake Varley, Stephen Tu, Sumeet Singh, Peng Xu, Fei Xia, Sven Persson, Dmitry Kalashnikov, Leila Takayama, Roy Frostig, Jie Tan, Carolina Parada, Vikas Sindhwani</div>
+        <div class="pub-venue">CoRL 2022</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Implicit Kinematic Policies: Unifying Joint and Cartesian Action Spaces in End-to-End Robot Learning</div>
+        <div class="pub-authors">Aditya Ganapathi, Pete Florence, Jake Varley, Kaylee Burns, Ken Goldberg, Andy Zeng</div>
+        <div class="pub-venue">ICRA 2022</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Multiscale Sensor Fusion and Continuous Control with Neural CDEs</div>
+        <div class="pub-authors">Sumeet Singh, Francis McCann Ramirez, Jacob Varley, Andy Zeng, Vikas Sindhwani</div>
+        <div class="pub-venue">IROS 2022</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Mobile Manipulation Leveraging Multiple Views</div>
+        <div class="pub-authors">David Watkins-Valls, Peter K. Allen, Henrique Maia, Madhavan Seshadri, Jonathan Sanabria, Nicholas R. Waytowich, Jacob Varley</div>
+        <div class="pub-venue">IROS 2022</div>
+      </div>
+    </div>
+
+    <!-- 2021 -->
+    <div class="year-group">
+      <div class="year-label">2021</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2104.07749">Actionable Models: Unsupervised Offline Reinforcement Learning of Robotic Skills</a>
+        </div>
+        <div class="pub-authors">Yevgen Chebotar, Karol Hausman, Yao Lu, Ted Xiao, Dmitry Kalashnikov, Jake Varley, Alex Irpan, Ben Eysenbach, Ryan Julian, Chelsea Finn, Sergey Levine</div>
+        <div class="pub-venue">ICML 2021</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Visionary: Vision Architecture Discovery for Robot Learning</div>
+        <div class="pub-authors">Iretiayo Akinola, Anelia Angelova, Yao Lu, Yevgen Chebotar, Dmitry Kalashnikov, Jacob Varley, Julian Ibarz, Michael Ryoo</div>
+        <div class="pub-venue">ICRA 2021</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Reward Machines for Vision-Based Robotic Manipulation</div>
+        <div class="pub-authors">Alberto Camacho, Jacob Varley, Andy Zeng, Deepali Jain, Atil Iscen, Dmitry Kalashnikov</div>
+        <div class="pub-venue">ICRA 2021</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2104.08212">MT-Opt: Continuous Multi-Task Robotic Reinforcement Learning at Scale</a>
+        </div>
+        <div class="pub-authors">Dmitry Kalashnikov, Jacob Varley, Yevgen Chebotar, Benjamin Swanson, Rico Jonschkowski, Chelsea Finn, Sergey Levine, Karol Hausman</div>
+        <div class="pub-venue">arXiv, 2021</div>
+      </div>
+    </div>
+
+    <!-- 2020 -->
+    <div class="year-group">
+      <div class="year-label">2020</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/2012.14464">Ode to an ODE</a>
+        </div>
+        <div class="pub-authors">Krzysztof Choromanski, Jared Quincy Davis, Valerii Likhosherstov, Xingyou Song, Jean-Jacques Slotine, Jacob Varley, Honglak Lee, Adrian Weller, Vikas Sindhwani</div>
+        <div class="pub-venue">NeurIPS 2020</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Generative Attention Learning: a "GenerAL" Framework for High-Performance Multi-Fingered Grasping in Clutter</div>
+        <div class="pub-authors">Bohan Wu, Iretiayo Akinola, Abhi Gupta, Feng Xu, Jacob Varley, David Watkins-Valls, Peter K. Allen</div>
+        <div class="pub-venue">Autonomous Robots, vol. 44, 2020</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Learning Precise 3D Manipulation from Multiple Uncalibrated Cameras</div>
+        <div class="pub-authors">Iretiayo Akinola, Jacob Varley, Dmitry Kalashnikov</div>
+        <div class="pub-venue">ICRA 2020</div>
+      </div>
+    </div>
+
+    <!-- 2019 -->
+    <div class="year-group">
+      <div class="year-label">2019</div>
+
+      <div class="pub-item">
+        <div class="pub-title">MAT: Multi-Fingered Adaptive Tactile Grasping via Deep Reinforcement Learning</div>
+        <div class="pub-authors">Bohan Wu, Iretiayo Akinola, Jacob Varley, Peter K. Allen</div>
+        <div class="pub-venue">CoRL 2019</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Teleoperator Imitation with Continuous-Time Safety</div>
+        <div class="pub-authors">Bachir El Khadir, Jacob Varley, Vikas Sindhwani</div>
+        <div class="pub-venue">RSS 2019</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Multi-Modal Geometric Learning for Grasping and Manipulation</div>
+        <div class="pub-authors">David Watkins-Valls, Jacob Varley, Peter K. Allen</div>
+        <div class="pub-venue">ICRA 2019</div>
+      </div>
+    </div>
+
+    <!-- 2018 -->
+    <div class="year-group">
+      <div class="year-label">2018</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/1806.11402">Workspace Aware Online Grasp Planning</a>
+        </div>
+        <div class="pub-authors">Iretiayo Akinola, Jacob Varley, Boyuan Chen, Peter K. Allen</div>
+        <div class="pub-venue">IROS 2018</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/1804.02462">Human Robot Interface for Assistive Grasping</a>
+        </div>
+        <div class="pub-authors">David Watkins-Valls, Chaiwen Chou, Caroline Weinberg, Jacob Varley, Kenneth Lyons, Sanjay Joshi, Lynne Weber, Joel Stein, Peter K. Allen</div>
+        <div class="pub-venue">arXiv, 2018</div>
+      </div>
+    </div>
+
+    <!-- 2017 -->
+    <div class="year-group">
+      <div class="year-label">2017</div>
+
+      <div class="pub-item">
+        <div class="pub-title">
+          <a href="https://arxiv.org/abs/1609.08546">Shape Completion Enabled Robotic Grasping</a>
+        </div>
+        <div class="pub-authors">Jacob Varley, Chad DeChant, Adam Richardson, Joaquín Ruales, Peter K. Allen</div>
+        <div class="pub-venue">IROS 2017</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Task Level Hierarchical System for BCI-enabled Shared Autonomy</div>
+        <div class="pub-authors">Iretiayo Akinola, Boyuan Chen, Jonathan Koss, Aalhad Patankar, Jake Varley, Peter K. Allen</div>
+        <div class="pub-venue">IEEE-RAS Humanoid Robots 2017</div>
+      </div>
+    </div>
+
+    <!-- 2015 -->
+    <div class="year-group">
+      <div class="year-label">2015</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Generating Multi-Fingered Robotic Grasps via Deep Learning</div>
+        <div class="pub-authors">Jacob Varley, Jonathan Weisz, Jared Weiss, Peter K. Allen</div>
+        <div class="pub-venue">IROS 2015</div>
+      </div>
+    </div>
+
+  </div><!-- /section-card -->
+
+</div><!-- /page-wrapper -->
+
+<footer>
+  &copy; 2025 Jake Varley
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
